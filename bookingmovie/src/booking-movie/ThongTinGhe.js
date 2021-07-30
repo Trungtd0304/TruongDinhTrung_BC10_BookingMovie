@@ -4,6 +4,7 @@ import { huyGheAction } from "./../redux/actions";
 
 class ThongTinGhe extends Component {
   render() {
+    const { danhSachGheDangDat, dispatch } = this.props;
     return (
       <div>
         <div className="mt-5">
@@ -32,7 +33,7 @@ class ThongTinGhe extends Component {
               </tr>
             </thead>
             <tbody className="text-warning">
-              {this.props.danhSachGheDangDat.map((gheDangDat, index) => {
+              {danhSachGheDangDat.map((gheDangDat, index) => {
                 return (
                   <tr key={index}>
                     <td>{gheDangDat.soGhe}</td>
@@ -40,7 +41,7 @@ class ThongTinGhe extends Component {
                     <td>
                       <button
                         onClick={() => {
-                          this.props.dispatch(huyGheAction(gheDangDat.soGhe));
+                          dispatch(huyGheAction(gheDangDat.soGhe));
                         }}
                       >
                         Huỷ
@@ -54,7 +55,7 @@ class ThongTinGhe extends Component {
               <tr className="text-light">
                 <td>Tổng tiền:</td>
                 <td>
-                  {this.props.danhSachGheDangDat
+                  {danhSachGheDangDat
                     .reduce((tongTien, gheDangDat, index) => {
                       return (tongTien += gheDangDat.gia);
                     }, 0)

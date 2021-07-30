@@ -4,7 +4,8 @@ import { datGheAction } from "./../redux/actions";
 
 class HangGhe extends Component {
   renderGhe = () => {
-    return this.props.hangGhe.danhSachGhe.map((ghe, index) => {
+    const { danhSachGheDangDat, hangGhe, datGhe } = this.props;
+    return hangGhe.danhSachGhe.map((ghe, index) => {
       let cssGheDaDat = "";
       let disabled = false;
       // trạng thái ghế đã bị người khác đặt
@@ -15,7 +16,7 @@ class HangGhe extends Component {
       }
       //xét trạng thái ghế đang đặt
       let cssGheDangDat = "";
-      let indexGheDangDat = this.props.danhSachGheDangDat.findIndex(
+      let indexGheDangDat = danhSachGheDangDat.findIndex(
         (gheDangDat) => gheDangDat.soGhe === ghe.soGhe
       );
       if (indexGheDangDat !== -1) {
@@ -25,7 +26,7 @@ class HangGhe extends Component {
       return (
         <button
           onClick={() => {
-            this.props.datGhe(ghe);
+            datGhe(ghe);
           }}
           disabled={disabled}
           className={`ghe ${cssGheDaDat} ${cssGheDangDat} `}
@@ -44,16 +45,17 @@ class HangGhe extends Component {
   };
 
   renderHangGhe = () => {
-    if (this.props.soHangGhe === 0) {
+    const { soHangGhe, hangGhe } = this.props;
+    if (soHangGhe === 0) {
       return (
         <div className="ml-4">
-          {this.props.hangGhe.hang} {this.renderSoHang()}
+          {hangGhe.hang} {this.renderSoHang()}
         </div>
       );
     } else {
       return (
         <div>
-          {this.props.hangGhe.hang} {this.renderGhe()}
+          {hangGhe.hang} {this.renderGhe()}
         </div>
       );
     }
